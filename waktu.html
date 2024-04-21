@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JAM</title>
+<style>
+    body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #e9f3ff;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 200px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #c4cde7;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+p {
+    font-size: 1.2em;
+    color: #000000;
+    margin-bottom: 20px;
+}
+</style>
+</head>
+<body>
+    <div class="container">
+        <p id="day"></p>
+        <p id="time"></p>
+        <p id="date"></p>
+    </div>
+    <script>
+        function updateClock() {
+            var now = new Date();
+            var date = now.toLocaleDateString();
+            var time = now.toLocaleTimeString();
+            var day = now.toLocaleString('en-US',{weekday:"long"});
+            document.getElementById('date').textContent = date;
+            document.getElementById('time').textContent = time;
+            document.getElementById('day').textContent = day;
+            setTimeout(updateClock, 1000); // Update setiap 1 detik
+        }
+
+        updateClock(); // Panggil fungsi untuk pertama kali
+    </script>
+</body>
+</html>

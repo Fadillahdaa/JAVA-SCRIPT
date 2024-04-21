@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Download Dialog</title>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        #dialog {
+            display: none;
+            text-align: center;
+        }
+        #progressbar {
+            width: 80%;
+            margin: 20px auto;
+        }
+    </style>
+</head>
+<body>
+    <button id="downloadButton">Download File</button>
+
+    <div id="dialog" title="Download Dialog">
+        <div id="progressbar"></div>
+        <p id="progressLabel">Downloading...</p>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $("#dialog").dialog({
+                autoOpen: false,
+                modal: true,
+                closeOnEscape: false, // Jangan izinkan menutup dialog dengan tombol escape
+                resizable: false, // Jangan izinkan mengubah ukuran dialog
+                draggable: false, // Jangan izinkan menarik dialog
+                open: function(event, ui) {
+                    // Reset progressbar saat dialog dibuka
+                    $("#progressbar").progressbar("value", false);
+                }
+            });
+
+            $("#progressbar").progressbar({
+                value: false
+            });
+
+            $("#downloadButton").click(function() {
+                // Simulasikan proses download dengan setInterval
+                var progress = 0;
+                var interval = setInterval(function() {
+                    progress += Math.random() * 10;
+                    $("#progressbar").progressbar("value", progress);
+
+                    // Tampilkan progress dalam label
+                    $("#progressLabel").text("Downloading... " + Math.round(progress) + "%");
+
+                    if (progress >= 100) {
+                        clearInterval(interval);
+                        $("#progressLabel").text("Download Complete!");
+                        setTimeout(function() {
+                            $("#dialog").dialog("close");
+                        }, 1000);
+                    }
+                }, 500);
+                
+                // Buka dialog download
+                $("#dialog").dialog("open");
+            });
+        });
+    </script>
+</body>
+</html>
